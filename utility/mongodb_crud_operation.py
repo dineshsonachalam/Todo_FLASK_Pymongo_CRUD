@@ -38,8 +38,14 @@ class crud_operation:
         self.client[self.database][self.collection].update_one({"task_name": "Rock"},{ "$set": { "task_name": "johnson" }})
         return dumps(self.client[self.database][self.collection].find())
 
-    # delete specific taksname records
+    # delete specific taskname records
     def delete(self,task_name):
         myquery = {"task_name": task_name}
         self.client[self.database][self.collection].delete_one(myquery)
         return "Records deleted successfully!"
+
+    # delete all the task documents
+    def delete_all(self):
+        no_of_documents = self.client[self.database][self.collection].delete_many({})
+        print("No of documents deleted: ",no_of_documents)
+        return str(no_of_documents)+" documents deleted."
